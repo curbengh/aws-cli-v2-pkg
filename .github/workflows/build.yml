@@ -42,9 +42,13 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Install git
+      - name: Install git & gnupg
         run: |
-          pacman -Syu --noconfirm git
+          pacman -Syu --noconfirm git gnupg
+      - name: Import keyring
+        # https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#install-linux-instructions
+        run: |
+          gpg --import "A6310ACC4672.pub"
       - name: Clone repo
         run: |
           git clone 'https://aur.archlinux.org/aws-cli-v2.git'
